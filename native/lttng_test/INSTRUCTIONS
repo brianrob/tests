@@ -1,0 +1,19 @@
+1. Build by running make.  You will need to have lttng-ust-dev installed on the machine.
+2. Run the following commands to start tracing:
+
+    lttng create
+    lttng enable-event -u test_provider:test_tracepoint
+    lttng start
+
+3. Run ./program to emit events.
+4. Run the following command to stop tracing:
+
+    lttng stop
+
+5. Run the following command to view the trace:
+
+    lttng view
+
+6. When done, run the following command to destroy the LTTng session:
+
+    lttng destroy
