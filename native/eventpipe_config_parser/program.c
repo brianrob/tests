@@ -20,6 +20,17 @@ void PrintProvider(unsigned int index)
     printf("Name=%s, Keywords=%08lx, Level=%x\n", pProv->ProviderName, pProv->Keywords, pProv->Level);
 }
 
+ProviderConfiguration* GetProvider(unsigned int i)
+{
+    ProviderConfiguration *retVal = NULL;
+    if(i < MaxProviders)
+    {
+        retVal = &s_ProviderConfigurationList[i];
+    }
+
+    return retVal;
+}
+
 // Set the provider configuration at the specified index.
 void SetProvider(unsigned int index, char* provName, unsigned long keywords, unsigned short level)
 {
@@ -34,31 +45,25 @@ void ParseInput(char * input)
     unsigned int len = strlen(input);
     unsigned int index = 0;
     unsigned int provConfigIndex = 0;
-    char * provName = NULL;
-
 
     while(index < len)
     {
+        ProviderConfiguration *pProv = GetProvider(provConfigIndex++);
+        if(pProv == NULL)
+        {
+            printf("NULL provider configuration.\n");
+            return;
+        }
         char * pCurrentChunk = &input[index];
         unsigned int currentChunkStartIndex = index;
         unsigned int currentChunkEndIndex = 0;
 
         // Find the next chunk.
-        while(index <= len)
+        while(index < len && input[index] != ',')
         {
-            if(index < len && input[index] == ',')
-            {
-                currentChunkEndIndex = index;
-                index++;
-                break;
-            }
-            else if(index == len)
-            {
-                currentChunkEndIndex = index;
-                break;
-            }
             index++;
         }
+        currentChunkEndIndex = index++;
 
         // Debug print the chunk.
         unsigned int chunkLen = currentChunkEndIndex - currentChunkStartIndex;
@@ -74,53 +79,31 @@ void ParseInput(char * input)
         unsigned int provNameStartIndex = chunkIndex;
         unsigned int provNameEndIndex = currentChunkEndIndex;
 
-        while(chunkIndex <= currentChunkEndIndex)
+        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ':')
         {
-            if(chunkIndex < currentChunkEndIndex && input[chunkIndex] == ':')
-            {
-                provNameEndIndex = chunkIndex;
-                chunkIndex++;
-                break;
-            }
-            else if(chunkIndex == currentChunkEndIndex)
-            {
-                provNameEndIndex = chunkIndex;
-            }
             chunkIndex++;
         }
+        provNameEndIndex = chunkIndex++;
 
-        // Debug print the provider name.
         unsigned int provNameLen = provNameEndIndex - provNameStartIndex;
-        char provName[provNameLen+1];
-        memcpy(provName, &input[provNameStartIndex], provNameLen);
-        provName[provNameLen] = '\0';
-        printf("\tProvName = %s\n", provName);
-
+        pProv->ProviderName = malloc(provNameLen+1);
+        memcpy(pProv->ProviderName, &input[provNameStartIndex], provNameLen);
 
         // Get the keywords.
         unsigned int keywordsStartIndex = chunkIndex;
         unsigned int keywordsEndIndex = currentChunkEndIndex;
 
-        while(chunkIndex <= currentChunkEndIndex)
+        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ':')
         {
-            if(chunkIndex < currentChunkEndIndex && input[chunkIndex] == ':')
-            {
-                keywordsEndIndex = chunkIndex;
-                chunkIndex++;
-                break;
-            }
-            else if(chunkIndex == currentChunkEndIndex)
-            {
-                keywordsEndIndex = chunkIndex;
-            }
             chunkIndex++;
         }
+        keywordsEndIndex = chunkIndex++;
 
-        // Debug print the keywords.
         unsigned int keywordsLen = keywordsEndIndex - keywordsStartIndex;
         char keywords[keywordsLen+1];
         memcpy(keywords, &input[keywordsStartIndex], keywordsLen);
         keywords[keywordsLen] = '\0';
+        pProv->Keywords = strtoul(keywords, NULL, 16);
         printf("\tKeywords = %s\n", keywords);
 
 
@@ -128,26 +111,18 @@ void ParseInput(char * input)
         unsigned int levelStartIndex = chunkIndex;
         unsigned int levelEndIndex = currentChunkEndIndex;
 
-        while(chunkIndex <= currentChunkEndIndex)
+        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ':')
         {
-            if(chunkIndex < currentChunkEndIndex && input[chunkIndex] == ':')
-            {
-                levelEndIndex = chunkIndex;
-                chunkIndex++;
-                break;
-            }
-            else if(chunkIndex == currentChunkEndIndex)
-            {
-                levelEndIndex = chunkIndex;
-            }
             chunkIndex++;
         }
+        levelEndIndex = chunkIndex++;
 
         // Debug print the level.
         unsigned int levelLen = levelEndIndex - levelStartIndex;
         char level[levelLen+1];
         memcpy(level, &input[levelStartIndex], levelLen);
         level[levelLen] = '\0';
+        pProv->Level = (unsigned short) strtoul(level, NULL, 16);
         printf("\tLevel = %s\n", level);
     }
 }
@@ -162,10 +137,10 @@ int main(int argc, char* argv[])
 
     ParseInput(argv[1]);
 
-    /*for(unsigned int i=0; i<MaxProviders; i++)
+    for(unsigned int i=0; i<MaxProviders; i++)
     {
         PrintProvider(i);
-    }*/
+    }
 
     return 0;
 }
