@@ -42,6 +42,19 @@ void SetProvider(unsigned int index, char* provName, unsigned long keywords, uns
 
 void ParseInput(char * input)
 {
+    // Parses a string with the following format:
+    //
+    //      ProviderName:Keywords:Level[,]*
+    //
+    // For example:
+    //
+    //      Microsoft-Windows-DotNETRuntime:0xCAFEBABE:2,Microsoft-Windows-DotNETRuntimePrivate:0xDEADBEEF:1
+    //
+    // Each provider configuration is separated by a ',' and each component within the configuration is
+    // separated by a ':'.
+
+    const char ProviderSeparatorChar = ',';
+    const char ComponentSeparatorChar = ':';
     unsigned int len = strlen(input);
     unsigned int index = 0;
     unsigned int provConfigIndex = 0;
@@ -59,18 +72,11 @@ void ParseInput(char * input)
         unsigned int currentChunkEndIndex = 0;
 
         // Find the next chunk.
-        while(index < len && input[index] != ',')
+        while(index < len && input[index] != ProviderSeparatorChar)
         {
             index++;
         }
         currentChunkEndIndex = index++;
-
-        // Debug print the chunk.
-        unsigned int chunkLen = currentChunkEndIndex - currentChunkStartIndex;
-        char chunk[chunkLen+1];
-        memcpy(chunk, pCurrentChunk, chunkLen);
-        chunk[chunkLen] = '\0';
-        printf("%s\n", chunk);
 
         // Split the chunk into components.
         unsigned int chunkIndex = currentChunkStartIndex;
@@ -79,7 +85,7 @@ void ParseInput(char * input)
         unsigned int provNameStartIndex = chunkIndex;
         unsigned int provNameEndIndex = currentChunkEndIndex;
 
-        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ':')
+        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ComponentSeparatorChar)
         {
             chunkIndex++;
         }
@@ -93,7 +99,7 @@ void ParseInput(char * input)
         unsigned int keywordsStartIndex = chunkIndex;
         unsigned int keywordsEndIndex = currentChunkEndIndex;
 
-        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ':')
+        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ComponentSeparatorChar)
         {
             chunkIndex++;
         }
@@ -104,14 +110,12 @@ void ParseInput(char * input)
         memcpy(keywords, &input[keywordsStartIndex], keywordsLen);
         keywords[keywordsLen] = '\0';
         pProv->Keywords = strtoul(keywords, NULL, 16);
-        printf("\tKeywords = %s\n", keywords);
-
 
         // Get the level.
         unsigned int levelStartIndex = chunkIndex;
         unsigned int levelEndIndex = currentChunkEndIndex;
 
-        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ':')
+        while(chunkIndex < currentChunkEndIndex && input[chunkIndex] != ComponentSeparatorChar)
         {
             chunkIndex++;
         }
@@ -123,7 +127,6 @@ void ParseInput(char * input)
         memcpy(level, &input[levelStartIndex], levelLen);
         level[levelLen] = '\0';
         pProv->Level = (unsigned short) strtoul(level, NULL, 16);
-        printf("\tLevel = %s\n", level);
     }
 }
 
