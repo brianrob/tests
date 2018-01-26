@@ -8,7 +8,7 @@ namespace activityid
     {
         static void Main(string[] args)
         {
-            Guid activityId = Guid.NewGuid();
+            Guid activityId = new Guid("10000000-0000-0000-0000-000000000001");
             
             Console.WriteLine($"Setting the activity ID to {activityId.ToString()}.");
             EventSource.SetCurrentThreadActivityId(activityId);
