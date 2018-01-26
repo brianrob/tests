@@ -16,7 +16,7 @@ namespace eventpipe_onoff
             int iteration = 1;
             while(true)
             {
-                string outputFile = string.Format("/home/brianrob/src/coretests/eventpipe_onoff/file-{0}.netperf", iteration);
+                string outputFile = string.Format("/home/brianrob/src/tests/managed/eventpipe_onoff/file-{0}.netperf", iteration);
                 TraceConfiguration config = CreateConfiguration(outputFile);
 
                 Console.WriteLine("Iteration {0}:", iteration++);
@@ -58,14 +58,14 @@ namespace eventpipe_onoff
             TraceConfiguration config = new TraceConfiguration(outputFile, circularBufferMB);
             // Setup the provider values.
             // Public provider.
-            string providerName = "e13c0d23-ccbc-4e12-931b-d9cc2eee27e4";
+            string providerName = "Microsoft-Windows-DotNETRuntime";
             UInt64 keywords = 0x4c14fccbd;
 
             // Enable the provider.
             config.EnableProvider(providerName, keywords, level);
 
             // Private provider.
-            providerName = "763fd754-7086-4dfe-95eb-c01a46faf4ca";
+            providerName = "Microsoft-Windows-DotNETRuntimePrivate";
             keywords = 0x4002000b;
 
             // Enable the provider.
