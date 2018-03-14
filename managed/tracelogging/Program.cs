@@ -10,6 +10,12 @@ namespace tracelogging
         {
         }
 
+        [Event(1)]
+        public void TestEventMethod(int i, string s)
+        {
+            WriteEvent(1, i, s);
+        }
+
         public static MySource Logger = new MySource();
     }
 
@@ -17,6 +23,7 @@ namespace tracelogging
     {
         static void Main(string[] args)
         {
+            MySource.Logger.TestEventMethod(1, "Hello World!");
             MySource.Logger.Write("TestEvent", new { field1 = "Hello", field2 = 3, field3 = 6 });
             MySource.Logger.Write("TestEvent1", new { field1 = "Hello", field2 = 3, });
             MySource.Logger.Write("TestEvent2", new { field1 = "Hello" });
