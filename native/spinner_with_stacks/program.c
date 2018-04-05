@@ -3,7 +3,8 @@
 void SpinYetAgain()
 {
     volatile unsigned int count = 0;
-    for(int i=0; i<1000; i++)
+    int i;
+    for(i=0; i<1000; i++)
     {
         count++;
     }
@@ -12,7 +13,8 @@ void SpinYetAgain()
 void SpinSomeMore()
 {
     volatile unsigned int count = 0;
-    for(int i=0; i<1000; i++)
+    int i;
+    for(i=0; i<1000; i++)
     {
         count++;
     }
@@ -23,7 +25,8 @@ void SpinSomeMore()
 void Spin()
 {
     volatile unsigned int count = 0;
-    for(int i=0; i<1000; i++)
+    int i;
+    for(i=0; i<1000; i++)
     {
         count++;
     }
