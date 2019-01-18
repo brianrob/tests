@@ -7,9 +7,6 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y \
         mono-devel \
-        lttng-modules-dkms \
-        liblttng-ust-dev \
-        lttng-tools \
         git
 
 WORKDIR /src
