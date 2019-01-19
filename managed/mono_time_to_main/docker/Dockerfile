@@ -9,6 +9,10 @@ RUN apt-get update && \
         mono-devel \
         git
 
+RUN apt-get update && \
+    apt-get install -y make \
+        gcc
+
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
     cd tests/managed/mono_time_to_main/src && \
