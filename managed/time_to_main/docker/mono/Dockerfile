@@ -7,13 +7,14 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y \
         mono-devel \
-        git
-
-RUN apt-get update && \
-    apt-get install -y make \
+        make \
+        git \
         gcc
 
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
     cd tests/managed/time_to_main/src && \
     make mono
+
+WORKDIR /src/tests/managed/time_to_main/src/
+ENTRYPOINT ["./run_mono.sh"
