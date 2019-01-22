@@ -15,5 +15,5 @@ RUN apt-get update && \
 
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
-    cd tests/managed/mono_time_to_main/src && \
-    make
+    cd tests/managed/time_to_main/src && \
+    make mono
