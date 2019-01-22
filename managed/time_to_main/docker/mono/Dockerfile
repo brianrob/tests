@@ -17,4 +17,4 @@ RUN git clone https://github.com/brianrob/tests && \
     make mono
 
 WORKDIR /src/tests/managed/time_to_main/src/
-ENTRYPOINT ["./run_mono.sh"
+ENTRYPOINT ["./run_mono.sh"]
