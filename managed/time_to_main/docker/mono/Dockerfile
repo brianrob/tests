@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:stretch-20181226
 
 RUN apt-get update && \
     apt install -y apt-transport-https dirmngr && \
@@ -9,7 +9,8 @@ RUN apt-get update && \
         mono-devel \
         make \
         git \
-        gcc
+        gcc && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
