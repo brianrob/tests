@@ -1,0 +1,14 @@
+{
+  "Default": {
+    "Source": {
+      "Repository": "https://github.com/brianrob/tests",
+      "BranchOrCommit": "master",
+      "DockerFile": "managed/time_to_main/docker/mono_aot/Dockerfile",
+      "DockerImageName": "time_to_main_mono_aot",
+      "DockerContextDirectory": "managed/time_to_main/docker/mono_aot/"
+    },
+    "Client": "None"
+  },
+  "time_to_main_mono": {}
+}
+
