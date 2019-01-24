@@ -12,15 +12,15 @@ RUN apt-get update && \
         gcc && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mono --aot /usr/lib/mono/4.5/mscorlib.dll
-RUN for i in /usr/lib/mono/gac/*/*/*.dll; do mono --aot $i; done
+RUN mono --aot=llvm /usr/lib/mono/4.5/mscorlib.dll
+RUN for i in /usr/lib/mono/gac/*/*/*.dll; do mono --aot=llvm $i; done
 
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
     cd tests/managed/time_to_main/src && \
     make mono && \
     cd bin_mono && \
-    mono --aot Program.exe
+    mono --aot=llvm Program.exe
 
 WORKDIR /src/tests/managed/time_to_main/src/
 ENTRYPOINT ["./run_mono.sh"]

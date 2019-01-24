@@ -17,7 +17,7 @@ RUN git clone https://github.com/brianrob/tests && \
     cd tests/managed/time_to_main/src && \
     make mono && \
     cd bin_mono && \
-    mono --aot Program.exe
+    mono --aot=llvm Program.exe
 
 WORKDIR /src/tests/managed/time_to_main/src/
 ENTRYPOINT ["./run_mono.sh"]

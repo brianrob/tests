@@ -12,8 +12,8 @@ RUN apt-get update && \
         gcc && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mono --aot /usr/lib/mono/4.5/mscorlib.dll
-RUN for i in /usr/lib/mono/gac/*/*/*.dll; do mono --aot $i; done
+RUN mono --aot=llvm /usr/lib/mono/4.5/mscorlib.dll
+RUN for i in /usr/lib/mono/gac/*/*/*.dll; do mono --aot=llvm $i; done
 
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
