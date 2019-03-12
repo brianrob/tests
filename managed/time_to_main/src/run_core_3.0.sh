@@ -8,7 +8,7 @@ echo "----------------------------------------------------------------"
 for (( i=0; i<=$iterations; i++ ))
 do
     echo "Iteration $i"
-    dotnet bin_core_3.0/Release/netcoreapp3.0/time_to_main.dll
+    /dotnet/dotnet bin_core_3.0/Release/netcoreapp3.0/time_to_main.dll
 done
 
 echo "----------------------------------------------------------------"
