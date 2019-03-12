@@ -21,4 +21,4 @@ RUN git clone https://github.com/brianrob/tests && \
     make coreclr
 
 WORKDIR /src/tests/managed/time_to_main/src/
-ENTRYPOINT ["./run_coreclr.sh"]
+ENTRYPOINT ["./run_core_2.2.sh"]
