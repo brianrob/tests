@@ -1,0 +1,14 @@
+{
+  "Default": {
+    "Source": {
+      "Repository": "https://github.com/brianrob/tests",
+      "BranchOrCommit": "master",
+      "DockerFile": "managed/time_to_main/docker/core_3.0/Dockerfile",
+      "DockerImageName": "time_to_main_core_3.0",
+      "DockerContextDirectory": "managed/time_to_main/docker/core_3.0/"
+    },
+    "Client": "None"
+  },
+  "time_to_main_core_3.0": {}
+}
+

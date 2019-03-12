@@ -10,7 +10,7 @@ RUN apt-get update && \
     chown root:root /etc/apt/sources.list.d/microsoft-prod.list && \
     apt-get update && \
     apt-get -y install \
-        dotnet-sdk-2.2 \
+        dotnet-sdk-3.0 \
         make \
         git \
         gcc
@@ -18,7 +18,7 @@ RUN apt-get update && \
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
     cd tests/managed/time_to_main/src && \
-    make core_2.2 
+    make core_3.0 
 
 WORKDIR /src/tests/managed/time_to_main/src/
-ENTRYPOINT ["./run_core_2.2.sh"]
+ENTRYPOINT ["./run_core_3.0.sh"]
