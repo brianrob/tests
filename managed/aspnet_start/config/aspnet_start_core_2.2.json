@@ -1,0 +1,14 @@
+{
+  "Default": {
+    "Source": {
+      "Repository": "https://github.com/brianrob/tests",
+      "BranchOrCommit": "master",
+      "DockerFile": "managed/aspnet_start/docker/core_2.2/Dockerfile",
+      "DockerImageName": "aspnet_start_core_2.2",
+      "DockerContextDirectory": "managed/aspnet_start/docker/core_2.2/"
+    },
+    "Client": "None"
+  },
+  "aspnet_start_core_2.2": {}
+}
+
