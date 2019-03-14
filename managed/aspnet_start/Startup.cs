@@ -37,6 +37,7 @@ namespace aspnet_start
         {
             Program._startupTimer.Stop();
             Log($"Startup elapsed ms: {Program._startupTimer.ElapsedMilliseconds} ms");
+            Environment.FailFast("Done.");
         }
 
         private void Log(string s)
