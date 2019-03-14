@@ -18,7 +18,9 @@ namespace aspnet_start
         public static void Main(string[] args)
         {
             _startupTimer.Start();
-            CreateWebHostBuilder(args).Build().Run();
+            IWebHost webHost = CreateWebHostBuilder(args).Build();
+            Startup.WebHost = webHost;
+            webHost.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
