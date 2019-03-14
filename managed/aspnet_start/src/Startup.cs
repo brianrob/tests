@@ -38,7 +38,7 @@ namespace aspnet_start
         private void OnAppStarted()
         {
             Program._startupTimer.Stop();
-            Log($"Startup elapsed ms: {Program._startupTimer.ElapsedMilliseconds} ms");
+            Log($"Startup elapsed ms: {Program._startupTimer.Elapsed.TotalMilliseconds} ms");
             WebHost.StopAsync(TimeSpan.FromSeconds(1));
         }
 
