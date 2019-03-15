@@ -3,12 +3,13 @@
 iterations=10
 echo "----------------------------------------------------------------"
 echo "Running $iterations iterations of Mono (Plus 1 warm-up iteration.)."
+echo "MONOCMD='$MONOCMD"
 echo "----------------------------------------------------------------"
 
 for (( i=0; i<=$iterations; i++ ))
 do
     echo "Iteration $i"
-    mono bin_mono/Program.exe
+    $MONOCMD bin_mono/Program.exe
 done
 
 echo "----------------------------------------------------------------"
