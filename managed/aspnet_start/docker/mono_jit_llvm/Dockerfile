@@ -12,6 +12,18 @@ RUN apt-get update && \
         gcc && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && \
+    apt-get install -y gpg wget && \
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --no-tty --dearmor > microsoft.asc.gpg && \
+    mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ && \
+    wget -q https://packages.microsoft.com/config/debian/9/prod.list && \
+    mv prod.list /etc/apt/sources.list.d/microsoft-prod.list && \
+    chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg && \
+    chown root:root /etc/apt/sources.list.d/microsoft-prod.list && \
+    apt-get update && \
+    apt-get -y install \
+        dotnet-sdk-2.2
+
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests
 
