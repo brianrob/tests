@@ -4,7 +4,7 @@
       "Repository": "https://github.com/brianrob/tests",
       "BranchOrCommit": "master",
       "DockerFile": "managed/aspnet_start/docker/mono_jit/Dockerfile",
-      "DockerImageName": "time_to_main_mono",
+      "DockerImageName": "aspnet_start_mono_jit",
       "DockerContextDirectory": "managed/aspnet_start/docker/mono_jit/"
     },
     "Client": "None"
