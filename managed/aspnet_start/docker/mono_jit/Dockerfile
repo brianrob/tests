@@ -16,5 +16,6 @@ WORKDIR /src
 RUN git clone https://github.com/brianrob/tests
 
 ENV MONOCMD='mono'
+ENV ASPNETCORE_URLS http://+:8080
 WORKDIR /src/tests/managed
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["./run_mono.sh"]
