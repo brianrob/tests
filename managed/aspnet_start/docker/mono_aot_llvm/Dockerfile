@@ -52,7 +52,7 @@ WORKDIR /src/tests/managed/aspnet_start/src
 RUN make mono
 
 WORKDIR /src/tests/managed/aspnet_start/src/bin_mono/Release/net471/linux-x64/publish
-RUN for i in /usr/local/lib/mono/gac/*/*/*.dll; do mono --aot=llvm $i; done
+RUN for i in *.dll; do mono --aot=llvm $i; done
 
 WORKDIR /src/tests/managed/aspnet_start/src
 ENV ASPNETCORE_URLS http://+:8080
