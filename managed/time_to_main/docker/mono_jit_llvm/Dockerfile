@@ -44,11 +44,10 @@ ENV MONOCMD='mono --llvm'
 
 # Clone and build the test.
 WORKDIR /src
-RUN git clone https://github.com/brianrob/tests
-WORKDIR /src/tests/managed/aspnet_start/src
-RUN make mono
+RUN git clone https://github.com/brianrob/tests && \
+    cd tests/managed/time_to_main/src && \
+    make mono
 
 # Run the test.
-WORKDIR /src/tests/managed/aspnet_start/src
-ENV ASPNETCORE_URLS http://+:8080
+WORKDIR /src/tests/managed/time_to_main/src/
 ENTRYPOINT ["./run_mono.sh"]
