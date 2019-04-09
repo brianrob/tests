@@ -1,0 +1,14 @@
+{
+  "Default": {
+    "Source": {
+      "Repository": "https://github.com/brianrob/tests",
+      "BranchOrCommit": "master",
+      "DockerFile": "managed/time_to_main/docker/mono_fx_aot_app_jit_llvm/Dockerfile",
+      "DockerImageName": "time_to_main_mono_fx_aot_app_jit_llvm",
+      "DockerContextDirectory": "managed/time_to_main/docker/mono_fx_aot_app_jit_llvm/"
+    },
+    "Client": "None"
+  },
+  "time_to_main_mono_fx_aot_app_jit_llvm": {}
+}
+
