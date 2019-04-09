@@ -37,10 +37,10 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     echo "deb https://download.mono-project.com/repo/debian preview-stretch main" | tee /etc/apt/sources.list.d/mono-official-preview.list && \
     apt-get update && \
     apt-cache madison mono-devel && \
-    apt-get install -y mono-devel=6.3.0.77-0nightly1+debian9b1
+    apt-get install -y mono-devel=6.3.0.115-0nightly1+debian9b1
 
 # AOT the framework.
-RUN for i in /usr/lib/mono/gac/*/*/*.dll; do mono --aot=llvm $i; done
+RUN for i in /usr/lib/mono/gac/*/*/*.dll; do echo "=====" && echo "Starting AOT: $i" && echo "=====" && mono --aot=llvm $i && echo ""; done
 
 # Set the MONO command line.
 ENV MONOCMD='mono --llvm'
@@ -53,7 +53,7 @@ RUN make mono
 
 # AOT the test and its non-framework dependencies.
 WORKDIR /src/tests/managed/aspnet_start/src/bin_mono/Release/net471/linux-x64/publish
-RUN for i in *.dll; do mono --aot=llvm $i; done
+RUN for i in *.dll; do echo "=====" && echo "Starting AOT: $i" && echo "=====" && mono --aot=llvm $i && echo ""; done
 
 # Run the test.
 WORKDIR /src/tests/managed/aspnet_start/src
