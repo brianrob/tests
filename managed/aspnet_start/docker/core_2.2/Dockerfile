@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:stretch-20181226
 
 RUN apt-get update && \
     apt-get install -y apt-transport-https dirmngr gpg wget && \
