@@ -40,7 +40,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     apt-get install -y mono-devel=6.3.0.77-0nightly1+debian9b1
 
 # AOT the framework.
-RUN for i in /usr/lib/mono/gac/*/*/*.dll; do mono --aot=llvm $i; done
+RUN for i in /usr/lib/mono/gac/*/*/*.dll; do echo "=====" && echo "Starting AOT: $i" && echo "=====" && mono --aot=llvm $i && echo ""; done
 
 # Set the MONO command line.
 ENV MONOCMD='mono --llvm'
