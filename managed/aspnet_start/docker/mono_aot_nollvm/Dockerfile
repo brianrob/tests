@@ -54,6 +54,7 @@ RUN make mono
 # AOT the test and its non-framework dependencies.
 WORKDIR /src/tests/managed/aspnet_start/src/bin_mono/Release/net471/linux-x64/publish
 RUN for i in *.dll; do echo "=====" && echo "Starting AOT: $i" && echo "=====" && mono --aot=llvm $i && echo ""; done
+RUN for i in *.exe; do echo "=====" && echo "Starting AOT: $i" && echo "=====" && mono --aot=llvm $i && echo ""; done
 
 # Run the test.
 WORKDIR /src/tests/managed/aspnet_start/src
