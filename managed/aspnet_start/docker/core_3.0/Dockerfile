@@ -19,4 +19,3 @@ RUN git clone https://github.com/brianrob/tests && \
 ENV ASPNETCORE_URLS http://+:8080
 WORKDIR /src/tests/managed/aspnet_start/src/
 ENTRYPOINT ["./run_core_3.0.sh"]
-

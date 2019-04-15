@@ -11,6 +11,7 @@ RUN apt-get update && \
         git \
         gcc \
         g++ \
+        gdb \
         autoconf \
         libtool \
         automake \
@@ -37,7 +38,9 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     echo "deb https://download.mono-project.com/repo/debian preview-stretch main" | tee /etc/apt/sources.list.d/mono-official-preview.list && \
     apt-get update && \
     apt-cache madison mono-devel && \
-    apt-get install -y mono-devel=6.3.0.107-0nightly1+debian9b1
+    apt-get install -y mono-devel=6.3.0.107-0nightly1+debian9b1 \
+        mono-dbg=6.3.0.107-0nightly1+debian9b1 \
+        mono-runtime-dbg=6.3.0.107-0nightly1+debian9b1
 
 # Set the MONO command line.
 ENV MONOCMD='mono --llvm'
