@@ -54,8 +54,13 @@ RUN git clone https://github.com/brianrob/tests
 WORKDIR /src/tests/managed/aspnet_start/src
 RUN make mono
 
-# AOT the test and its non-framework dependencies.
+# Switch to the app directory to AOT the app binaries.
 WORKDIR /src/tests/managed/aspnet_start/src/bin_mono/Release/net471/linux-x64/publish
+
+# Remove desktop assemblies blocked by mono.  These will be pulled from the previously AOT'd mono implementation.
+RUN rm System.Globalization.Extensions.dll System.IO.Compression.dll System.Net.Http.dll System.Threading.Overlapped.dll
+
+# AOT the test and its non-framework dependencies.
 RUN for i in *.dll; do echo "=====" && echo "Starting AOT: $i" && echo "=====" && mono --aot=llvm $i && echo ""; done
 RUN for i in *.exe; do echo "=====" && echo "Starting AOT: $i" && echo "=====" && mono --aot=llvm $i && echo ""; done
 
