@@ -1,13 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFrameworks>net471;netcoreapp2.2</TargetFrameworks>
+    <TargetFrameworks>net471;netcoreapp2.2;netcoreapp3.0</TargetFrameworks>
     <AspNetCoreHostingModel Condition="'$(TargetFramework)' == 'netcoreapp2.2'">InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net471'">
     <OutputType>Exe</OutputType>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Linux'">
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
@@ -30,7 +37,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
   </ItemGroup>
   
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' AND '$(OS)' == 'Linux'">
     <!-- Make sure the reference assemblies are available -->
     <FrameworkPathOverride>$(NuGetPackageRoot)microsoft.targetingpack.netframework.v4.7.1\1.0.0\lib\net471\</FrameworkPathOverride>
   </PropertyGroup>
