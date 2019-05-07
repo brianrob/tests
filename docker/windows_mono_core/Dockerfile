@@ -59,18 +59,11 @@ RUN Write-Host ('Downloading {0} ...' -f $env:MONO_DOWNLOAD_URL); \
 	Write-Host 'Complete.'
 
 # Install the dotnet SDK.
-ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/a3fe6da8-1ec8-48e5-b93d-cbf6cbe4e1ad/b4c6e212cda446fcc6c305296130e76b/dotnet-sdk-3.0.100-preview4-011223-win-x64.zip
-ENV DOTNET_SDK_ZIP dotnet-sdk-3.0.100-preview4-011223-win-x64.zip
-ENV DOTNET_SDK_SHA512 2E208318A513315D7431F756AF8689B7E7915F9AE1C6DEC7D182BA14D874D7ACD006C1066D0CCDC41B1E9136A08B7B21B43AD3916960C970F31E503646DF516D
+ENV DOTNET_SDK_DOWNLOAD_URL https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-win-x64.zip
+ENV DOTNET_SDK_ZIP dotnet-sdk-latest-win-x64.zip
 RUN Write-Host ('Downloading {0} ...' -f $env:DOTNET_SDK_DOWNLOAD_URL); \
 	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
 	Invoke-WebRequest -Uri $env:DOTNET_SDK_DOWNLOAD_URL -OutFile $env:DOTNET_SDK_ZIP; \
-	\
-	Write-Host ('Verifying sha512 ({0}) ...' -f $env:DOTNET_SDK_SHA512); \
-	if ((Get-FileHash $env:DOTNET_SDK_ZIP -Algorithm sha512).Hash -ne $env:DOTNET_SDK_SHA512) { \
-		Write-Host 'FAILED!'; \
-		exit 1; \
-	}; \
 	\
 	Write-Host 'Expanding ...'; \
 	Expand-Archive -Path $env:DOTNET_SDK_ZIP -DestinationPath C:\dotnet\.; \
@@ -86,3 +79,38 @@ RUN Write-Host ('Downloading {0} ...' -f $env:DOTNET_SDK_DOWNLOAD_URL); \
 	Write-Host '  dotnet --info'; dotnet --info; \
 	\
 	Write-Host 'Complete.';
+
+# Download and install the .NET 4.7.1 SDK.
+ENV 471_SDK_INSTALLER NDP471-DevPack-ENU.exe
+ENV 471_SDK_DOWNLOAD_URL https://download.microsoft.com/download/9/0/1/901B684B-659E-4CBD-BEC8-B3F06967C2E7/NDP471-DevPack-ENU.exe
+RUN Write-Host ('Downloading {0} ...' -f $env:471_SDK_DOWNLOAD_URL); \
+    Invoke-WebRequest -Uri $env:471_SDK_DOWNLOAD_URL -OutFile $env:471_SDK_INSTALLER; \
+    \
+    Write-Host 'Installing ...'; \
+	Write-Host (' {0} /install /quiet /norestart' -f $env:471_SDK_INSTALLER); Start-Process -FilePath $env:471_SDK_INSTALLER -ArgumentList '/install','/quiet','/norestart' -Wait; \
+	\
+	Write-Host 'Removing ...'; \
+	Remove-Item $env:471_SDK_INSTALLER -Force; \
+	\
+	Write-Host 'Complete.'
+
+# Clone the test repo.
+WORKDIR C:\\src
+ENV TESTS_GIT_URL https://github.com/brianrob/tests
+ENV TESTS_SUBDIR tests
+ENV TESTS_COMMIT_HASH 3a7b78783eaa18049deae98afd93932d1b48856e
+RUN Write-Host ('Cloning {0} ...' -f $env:TESTS_GIT_URL); \
+    git clone $env:TESTS_GIT_URL $env:TESTS_SUBDIR; \
+    \
+    cd $env:TESTS_SUBDIR; \
+    \
+    Write-Host ('Checking out {0} ...' -f $env:TESTS_COMMIT_HASH); \
+    git checkout $env:TESTS_COMMIT_HASH; \
+    \
+    Write-Host 'Complete.'
+
+# Build the test.
+WORKDIR C:\\src\\tests\\managed\\aspnet_start\\src
+RUN dotnet publish -c Release -f net471 --self-contained -r win-x64
+RUN dotnet build -c Release -f netcoreapp2.2
+RUN dotnet build -c Release -f netcoreapp3.0
