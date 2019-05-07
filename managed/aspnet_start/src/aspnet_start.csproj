@@ -13,9 +13,6 @@
   <PropertyGroup Condition="'$(OS)' == 'Linux'">
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-  </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="Microsoft.AspNetCore.App" />
