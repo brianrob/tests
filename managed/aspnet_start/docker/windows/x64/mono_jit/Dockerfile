@@ -98,7 +98,7 @@ RUN Write-Host ('Downloading {0} ...' -f $env:471_SDK_DOWNLOAD_URL); \
 WORKDIR C:\\src
 ENV TESTS_GIT_URL https://github.com/brianrob/tests
 ENV TESTS_SUBDIR tests
-ENV TESTS_COMMIT_HASH 3a7b78783eaa18049deae98afd93932d1b48856e
+ENV TESTS_COMMIT_HASH b6286cd423bfa53e179cae23873fa72d2ba207d9
 RUN Write-Host ('Cloning {0} ...' -f $env:TESTS_GIT_URL); \
     git clone $env:TESTS_GIT_URL $env:TESTS_SUBDIR; \
     \
@@ -113,5 +113,8 @@ RUN Write-Host ('Cloning {0} ...' -f $env:TESTS_GIT_URL); \
 WORKDIR C:\\src\\tests\\managed\\aspnet_start\\src
 RUN dotnet publish -c Release -f net471 --self-contained -r win-x64
 
+# Allow PowerShell scripts to be run.
+RUN Set-ExecutionPolicy Unrestricted
+
 # Run the test.
-ENTRYPOINT powershell -Command ".\run.ps1" {Start-Process -FilePath "mono.exe" -ArgumentList "bin\Release\net471\win-x64\aspnet_start.dll" -NoNewWindow -Wait}
+ENTRYPOINT .\run.ps1 {Start-Process -FilePath "mono.exe" -ArgumentList "bin\Release\net471\win-x64\publish\aspnet_start.exe" -NoNewWindow -Wait}
