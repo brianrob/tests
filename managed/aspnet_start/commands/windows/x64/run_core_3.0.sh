@@ -6,5 +6,5 @@ dotnet ~/src/aspnet-benchmarks/src/BenchmarksDriver/bin/Release/netcoreapp2.1/Be
     --no-clean \
     --console \
     --display-output \
-    --jobs https://raw.githubusercontent.com/brianrob/tests/master/managed/aspnet_start/config/windows/x64/aspnet_start_mono_jit.json \
-    --scenario aspnet_start_mono_jit
+    --jobs https://raw.githubusercontent.com/brianrob/tests/master/managed/aspnet_start/config/windows/x64/aspnet_start_core_3.0.json \
+    --scenario aspnet_start_core_3.0
