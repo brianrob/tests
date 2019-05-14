@@ -4,5 +4,5 @@ dotnet ~/src/aspnet-benchmarks/src/BenchmarksDriver/bin/Release/netcoreapp2.1/Be
     --server $SERVER_URL \
     --client $CLIENT_URL \
     --no-clean \
-    --jobs https://raw.githubusercontent.com/brianrob/tests/managed/techempower/configs/go-fasthttp.json \
+    --jobs https://raw.githubusercontent.com/brianrob/tests/master/managed/techempower/config/go-fasthttp.json \
     --scenario Plaintext-GoFastHttp \
