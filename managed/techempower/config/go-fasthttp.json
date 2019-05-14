@@ -1,0 +1,29 @@
+﻿{
+  "Default": {
+    "Source": {
+      "Repository": "https://github.com/brianrob/FrameworkBenchmarks.git",
+      "BranchOrCommit": "master",
+      "DockerFile": "frameworks/Go/fasthttp/fasthttp.dockerfile",
+      "DockerImageName": "go-fasthttp",
+      "DockerContextDirectory": "frameworks/CSharp/Go/fasthttp"
+    },
+    "Client": "Wrk",
+    "Port": 8080
+  },
+  "Plaintext-GoFastHttp": {
+    "Path": "/plaintext",
+    "PresetHeaders": "Plaintext",
+    "ClientProperties": {
+      "ScriptName": "pipeline",
+      "PipelineDepth": 16
+    }
+  },
+  "PlaintextNonPipelined-GoFastHttp": {
+    "Path": "/plaintext",
+    "PresetHeaders": "Plaintext"
+  },
+  "Json-GoFastHttp": {
+    "Path": "/json",
+    "PresetHeaders": "Json"
+  }
+}
