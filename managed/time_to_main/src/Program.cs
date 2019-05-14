@@ -10,6 +10,7 @@ namespace TimeToMain
 
         public static void Main(string[] args)
         {
+            Console.WriteLine("Hello World!");
             write_marker("/function/main");
         }
     }
