@@ -3,7 +3,7 @@
     "Source": {
       "Repository": "https://github.com/brianrob/FrameworkBenchmarks.git",
       "BranchOrCommit": "master",
-      "DockerFile": "frameworks/Go/fasthttp/fasthttp.dockerfile",
+      "DockerFile": "frameworks/Go/fasthttp/fasthttp-postgresql.dockerfile",
       "DockerImageName": "go-fasthttp",
       "DockerContextDirectory": "frameworks/Go/fasthttp"
     },
@@ -25,5 +25,9 @@
   "Json-GoFastHttp": {
     "Path": "/json",
     "PresetHeaders": "Json"
+  },
+  "FortunesPostgreSql-GoFastHttp": {
+    "Path": "/fortunes",
+    "PresetHeaders": "Html"
   }
 }
