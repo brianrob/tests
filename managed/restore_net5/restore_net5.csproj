@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+      <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="runtime.linux-x64.microsoft.netcore.runtime.mono" Version="6.3.0.621" />
+    <PackageReference Include="runtime.linux-x64.microsoft.netcore.runtime.mono" Version="$(MONO_PKG_VERSION)" />
   </ItemGroup>
 
 </Project>
