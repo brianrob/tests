@@ -14,7 +14,7 @@ ENV PATH=/dotnet:$PATH
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
     cd tests/managed/aspnet_start/src && \
-    git checkout 32decfdb51d8106d93bde8edefe7b93491ff6529 && \
+    git checkout 0c8d2189eb83a07f61c7e592c20f17c7c542cb79 && \
     dotnet publish -c Release -f netcoreapp3.0 --self-contained -r linux-x64
 
 ENV MONO_PKG_VERSION 6.3.0.621
