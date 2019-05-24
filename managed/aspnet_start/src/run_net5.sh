@@ -8,7 +8,7 @@ echo "----------------------------------------------------------------"
 for (( i=0; i<=$iterations; i++ ))
 do
     echo "Iteration $i"
-    $MONOCMD bin/Release/netcoreapp3.0/linux-x64/publish/aspnet_start.exe
+    $MONOCMD bin/Release/netcoreapp3.0/linux-x64/publish/aspnet_start
 done
 
 echo "----------------------------------------------------------------"
