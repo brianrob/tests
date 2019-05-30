@@ -14,7 +14,7 @@ ENV PATH=/dotnet:$PATH
 WORKDIR /src
 RUN git clone https://github.com/brianrob/tests && \
     cd tests/managed/time_to_main/src && \
-    git checkout 325be8c471e8c948b00a3dfbc04b8e58178e3abd && \
+    git checkout f25673ede303c1ea6e610d8a48ec514fddf3a0aa && \
     gcc -shared -o libnative.so -fPIC native.c && \
     dotnet publish -c Release -f netcoreapp3.0 --self-contained -r linux-x64 && \
     cp libnative.so bin/Release/netcoreapp3.0/linux-x64/publish
