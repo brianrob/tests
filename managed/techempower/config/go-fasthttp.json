@@ -27,7 +27,7 @@
     "PresetHeaders": "Json"
   },
   "FortunesPostgreSql-GoFastHttp": {
-    "Path": "/fortunes",
+    "Path": "/fortune",
     "PresetHeaders": "Html"
   }
 }
