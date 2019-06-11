@@ -321,3 +321,7 @@ sandbox
 
 #IL linker for testing
 linker
+
+# Vim intermediates
+*.swo
+*.swp
