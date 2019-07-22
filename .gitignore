@@ -325,3 +325,6 @@ linker
 # Vim intermediates
 *.swo
 *.swp
+
+# Benchmarks json files
+*.bench.json
