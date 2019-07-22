@@ -3,13 +3,13 @@
 iterations=10
 echo "----------------------------------------------------------------"
 echo "Running $iterations iterations (Plus 1 warm-up iteration.)."
-echo "Command: $runcmd"
+echo "Command: $RUNCMD"
 echo "----------------------------------------------------------------"
 
 for (( i=0; i<=$iterations; i++ ))
 do
     echo "Iteration $i"
-    $runcmd
+    $RUNCMD
 done
 
 echo "----------------------------------------------------------------"
