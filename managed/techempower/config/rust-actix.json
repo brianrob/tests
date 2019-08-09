@@ -1,0 +1,33 @@
+﻿{
+  "Default": {
+    "Source": {
+      "Repository": "https://github.com/brianrob/FrameworkBenchmarks.git",
+      "BranchOrCommit": "master",
+      "DockerFile": "frameworks/Rust/actix/actix.dockerfile",
+      "DockerImageName": "rust-actix",
+      "DockerContextDirectory": "frameworks/Rust/actix"
+    },
+    "Client": "Wrk",
+    "Port": 8080
+  },
+  "Plaintext-RustFastHttp": {
+    "Path": "/plaintext",
+    "PresetHeaders": "Plaintext",
+    "ClientProperties": {
+      "ScriptName": "pipeline",
+      "PipelineDepth": 16
+    }
+  },
+  "PlaintextNonPipelined-RustFastHttp": {
+    "Path": "/plaintext",
+    "PresetHeaders": "Plaintext"
+  },
+  "Json-RustFastHttp": {
+    "Path": "/json",
+    "PresetHeaders": "Json"
+  },
+  "FortunesPostgreSql-RustFastHttp": {
+    "Path": "/fortune",
+    "PresetHeaders": "Html"
+  }
+}
