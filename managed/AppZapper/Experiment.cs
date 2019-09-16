@@ -30,6 +30,11 @@ namespace AppZapper
             _attemptingList = attemptingList;
         }
 
+        public long Number
+        {
+            get { return _experimentNumber; }
+        }
+
         public bool Succeeded
         {
             get; private set;
@@ -48,7 +53,7 @@ namespace AppZapper
         public void Execute()
         {
             Log("========");
-            Log($"New Experiment [{_experimentNumber}]");
+            Log($"New Experiment [{_experimentNumber}]: {_committedList.Count} blocks committed.");
             Log("========");
 
             // Make a new directory for the experiment.
@@ -108,18 +113,49 @@ namespace AppZapper
             requestsTask.Wait(Config.OperationTimeout);
 
             // Shutdown the app.
-            // TODO: Can we do this gracefully and make sure it doesn't crash?
-            _experimentProcess.Kill(true);
+            Task shutdownTask = ShutdownApp();
+            shutdownTask.Wait(Config.OperationTimeout);
 
             // Mark the experiment as succeeded if everything completed successfully.
-            if(requestsTask.IsCompleted && (requestsTask.Exception == null))
+            if(requestsTask.IsCompleted && (requestsTask.Exception == null) && shutdownTask.IsCompleted && (shutdownTask.Exception == null))
             {
-                Succeeded = true;
+                if (!_experimentProcess.HasExited)
+                {
+                    // Wait for graceful shutdown.
+                    _experimentProcess.WaitForExit(Config.ShutdownTimeOutMilliseconds);
+                    if (!_experimentProcess.HasExited)
+                    {
+                        _experimentProcess.Kill(true);
+                    }
+                    else
+                    {
+                        Succeeded = true;
+                    }
+                }
+                else
+                {
+                    Succeeded = true;
+                }
+            }
+            else
+            {
+                Debugger.Launch();
+            }
+        }
+
+        private async Task ShutdownApp()
+        {
+            Log("Shutting down.");
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage responseMessage = await httpClient.GetAsync(Config.ShutdownUrl);
+                responseMessage.EnsureSuccessStatusCode();
             }
         }
 
         private async Task SendAndValidateRequests()
         {
+            Log($"Executing {Config.NumRequests} requests.");
             using (HttpClient httpClient = new HttpClient())
             {
                 for (int i = 0; i < Config.NumRequests; i++)

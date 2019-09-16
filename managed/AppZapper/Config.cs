@@ -11,13 +11,15 @@ namespace AppZapper
         public static readonly string AppPath = Path.Combine(AppDirectory, AppExeName);
 
         public const string TempDirectoryRoot = @"C:\work\ZapperTemp";
-        public static readonly string LatestSuccessfulBits = Path.Combine(TempDirectoryRoot, "LatestSuccessful");
+        public static readonly string LatestSuccessfulList = Path.Combine(TempDirectoryRoot, "LatestSuccessful.txt");
 
         public static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(1000); // TODO
+        public static readonly int ShutdownTimeOutMilliseconds = 5000;
         public const string AppStartupSuccessStartString = "      Content root path:";
         public static readonly TimeSpan PollingInterval = TimeSpan.FromMilliseconds(10);
 
         public const string ServerUrl = "http://localhost:5000/WeatherForecast";
+        public const string ShutdownUrl = "http://localhost:5000/shutdown";
         public const int NumRequests = 2;
 
         public const ulong BlockSize = 8 * 1024;

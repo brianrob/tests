@@ -42,11 +42,19 @@ namespace AppZapper
             return _set.Max;
         }
 
-        public void Write(StreamWriter writer)
+        public void WriteToFile(string filePath)
         {
-            foreach(ulong addr in _set)
+            using (StreamWriter writer = new StreamWriter(filePath))
             {
-                writer.WriteLine($"{0:16x}", addr);
+                // Write the header.
+                writer.WriteLine($"BlockSize: {Config.BlockSize / 1024}K");
+                writer.WriteLine();
+
+                // Write every block entry.
+                foreach (ulong addr in _set)
+                {
+                    writer.WriteLine("{0:X16}", addr);
+                }
             }
         }
 
