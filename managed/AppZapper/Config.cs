@@ -19,5 +19,8 @@ namespace AppZapper
 
         public const string ServerUrl = "http://localhost:5000/WeatherForecast";
         public const int NumRequests = 2;
+
+        public const ulong BlockSize = 8 * 1024;
+        public const int NumPermutations = 10;
     }
 }

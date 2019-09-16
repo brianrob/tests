@@ -17,18 +17,17 @@ namespace AppZapper
         private long _experimentNumber;
         private string _experimentPath;
         private Process _experimentProcess;
+        private ZeroBlockList _committedList;
+        private ZeroBlockList _attemptingList;
 
-        public Experiment(string appDirectory, string tempDirectory)
+        public Experiment(ZeroBlockList committedList, ZeroBlockList attemptingList)
         {
             // Assign an experiment number and increment the global counter.
             _experimentNumber = ExperimentCounter++;
 
-            // Make a new directory for the experiment.
-            _experimentPath = Path.Combine(Config.TempDirectoryRoot, _experimentNumber.ToString());
-            Directory.CreateDirectory(_experimentPath);
-
-            // Copy the app into the experiment directory.
-            Utilities.CopyDirectory(appDirectory, _experimentPath, true);
+            // Save the zero block lists.
+            _committedList = committedList;
+            _attemptingList = attemptingList;
         }
 
         public bool Succeeded
@@ -36,11 +35,28 @@ namespace AppZapper
             get; private set;
         }
 
+        public ZeroBlockList CommittedList
+        {
+            get { return _committedList; }
+        }
+
+        public ZeroBlockList AttemptingList
+        {
+            get { return _attemptingList; }
+        }
+
         public void Execute()
         {
             Log("========");
             Log($"New Experiment [{_experimentNumber}]");
             Log("========");
+
+            // Make a new directory for the experiment.
+            _experimentPath = Path.Combine(Config.TempDirectoryRoot, _experimentNumber.ToString());
+            Directory.CreateDirectory(_experimentPath);
+
+            // Copy the app into the experiment directory.
+            Utilities.CopyDirectory(Config.AppDirectory, _experimentPath, true);
 
             // TODO: Modify the binary.
 
@@ -90,7 +106,6 @@ namespace AppZapper
             // Exercise the app.
             Task requestsTask = SendAndValidateRequests();
             requestsTask.Wait(Config.OperationTimeout);
-
 
             // Shutdown the app.
             // TODO: Can we do this gracefully and make sure it doesn't crash?
@@ -151,6 +166,21 @@ namespace AppZapper
             Directory.CreateDirectory(destinationPath);
 
             Utilities.CopyDirectory(_experimentPath, destinationPath, true);
+        }
+
+        public void Complete()
+        {
+            if(Succeeded)
+            {
+                ZeroBlockList committedList = new ZeroBlockList();
+                committedList.AddRange(_committedList);
+                committedList.AddRange(_attemptingList);
+                _committedList = committedList;
+
+                _attemptingList = new ZeroBlockList();
+            }
+
+            Delete();
         }
 
         public void Delete()
