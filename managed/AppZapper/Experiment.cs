@@ -129,6 +129,7 @@ namespace AppZapper
                     _experimentProcess.WaitForExit(Config.ShutdownTimeOutMilliseconds);
                     if (!_experimentProcess.HasExited)
                     {
+                        Log("Failed to exit gracefully.  Terminating process.");
                         _experimentProcess.Kill(true);
                     }
                     else
@@ -140,6 +141,15 @@ namespace AppZapper
                 {
                     Succeeded = true;
                 }
+            }
+            else
+            {
+                Log("Abnormal behavior or termination.  Attempting to terminate process.");
+                if(!_experimentProcess.HasExited)
+                {
+                    _experimentProcess.Kill(true);
+                }
+                Log("Process terminated.");
             }
         }
 
