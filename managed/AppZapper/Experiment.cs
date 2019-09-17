@@ -141,10 +141,6 @@ namespace AppZapper
                     Succeeded = true;
                 }
             }
-            else
-            {
-                Debugger.Launch();
-            }
         }
 
         private async Task ShutdownApp()
