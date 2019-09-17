@@ -134,12 +134,18 @@ namespace AppZapper
                     }
                     else
                     {
-                        Succeeded = true;
+                        if (_experimentProcess.ExitCode == 0)
+                        {
+                            Succeeded = true;
+                        }
                     }
                 }
                 else
                 {
-                    Succeeded = true;
+                    if (_experimentProcess.ExitCode == 0)
+                    {
+                        Succeeded = true;
+                    }
                 }
             }
             else
