@@ -63,7 +63,11 @@ namespace AppZapper
             // Copy the app into the experiment directory.
             Utilities.CopyDirectory(Config.AppDirectory, _experimentPath, true);
 
-            // TODO: Modify the binary.
+            // Modify the binary.
+            BinaryModifier.ApplyZeroBlocks(
+                Path.Combine(_experimentPath, Config.AppExeName),
+                _committedList,
+                _attemptingList);
 
             // Start the app.
             Log("Starting test process.");

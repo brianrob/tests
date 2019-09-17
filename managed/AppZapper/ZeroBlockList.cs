@@ -37,9 +37,9 @@ namespace AppZapper
             }
         }
 
-        public ulong GetHighestAddress()
+        public bool Contains(ulong value)
         {
-            return _set.Max;
+            return _set.Contains(value);
         }
 
         public void WriteToFile(string filePath)
