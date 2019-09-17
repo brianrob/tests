@@ -6,14 +6,14 @@ namespace AppZapper
 {
     public sealed class Config
     {
-        public const string AppDirectory = @"C:\src\link-a-thon\src\ApiTemplate\bin\Release\netcoreapp3.0\win-x64\publish";
-        public const string AppExeName = "ApiTemplate.exe";
+        public const string AppDirectory = @"/home/brianrob/src/link-a-thon/src/ApiTemplate/bin/Release/netcoreapp3.0/linux-x64/publish";
+        public const string AppExeName = "ApiTemplate";
         public static readonly string AppPath = Path.Combine(AppDirectory, AppExeName);
 
-        public const string TempDirectoryRoot = @"C:\work\ZapperTemp";
+        public const string TempDirectoryRoot = @"/home/brianrob/work/ZapperTemp";
         public static readonly string LatestSuccessfulList = Path.Combine(TempDirectoryRoot, "LatestSuccessful.txt");
 
-        public static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(1000); // TODO
+        public static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(5);
         public static readonly int ShutdownTimeOutMilliseconds = 5000;
         public const string AppStartupSuccessStartString = "      Content root path:";
         public static readonly TimeSpan PollingInterval = TimeSpan.FromMilliseconds(10);
