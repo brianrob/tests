@@ -1,0 +1,18 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.40203.910",
+  "ExtendedData": {
+    "inputs": [
+      "http://localhost:8000/GettingStartedLib/CalculatorService/mex"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, CalculatorServiceReference"
+    ],
+    "targetFramework": "net472",
+    "typeReuseMode": "None"
+  }
+}
