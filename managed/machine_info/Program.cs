@@ -9,9 +9,15 @@ namespace machine_info
         {
             foreach(DriveInfo driveInfo in DriveInfo.GetDrives())
             {
-                Console.WriteLine($"Name: {driveInfo.Name}, Format: {driveInfo.DriveFormat}, Type: {driveInfo.DriveType}, Name: {driveInfo.Name}, VolumeLabel: {driveInfo.VolumeLabel}, TotalSize: {driveInfo.TotalSize}, TotalFreeSpace: {driveInfo.TotalFreeSpace}, AvailableFreeSpace {driveInfo.AvailableFreeSpace}");
+                try
+                {
+                    Console.WriteLine($"Name: {driveInfo.Name}, Format: {driveInfo.DriveFormat}, Type: {driveInfo.DriveType}, Name: {driveInfo.Name}, VolumeLabel: {driveInfo.VolumeLabel}, TotalSize: {driveInfo.TotalSize}, TotalFreeSpace: {driveInfo.TotalFreeSpace}, AvailableFreeSpace {driveInfo.AvailableFreeSpace}");
+                }
+                catch
+                {
+                    Console.WriteLine($"Warning: Could not fetch details for {driveInfo.Name}.");
+                }
             }
-            Console.ReadKey();
         }
     }
 }
