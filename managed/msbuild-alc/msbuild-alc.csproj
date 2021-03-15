@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>msbuild_alc</RootNamespace>
+  </PropertyGroup>
+
+  <UsingTask TaskName="CustomTarget" AssemblyFile="$(MSBuildProjectDirectory)\bin\debug\net5.0\msbuild-alc.dll" />
+
+  <Target Name="Test">
+    <CustomTarget />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="16.8.0" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="16.8.0" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.8.0" />
+  </ItemGroup>
+
+</Project>
