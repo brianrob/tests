@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<AutomatedAnalysisConfiguration>
+  <AnalyzerConfiguration>
+    <Analyzer Name='Microsoft.Diagnostics.Tracing.AutomatedAnalysis.Analyzers.OutputDebugW'>
+      <Property Name='key' Value='value' />
+      <Property Name='threshold' Value='0.05' />
+    </Analyzer>
+    <Analyzer Name='Microsoft.Diagnostics.Tracing.AutomatedAnalysis.Analyzers.StringConcat'>
+      <Property Name='key' Value='value' />
+      <Property Name='threshold' Value='0.06' />
+    </Analyzer>
+  </AnalyzerConfiguration>
+</AutomatedAnalysisConfiguration>
