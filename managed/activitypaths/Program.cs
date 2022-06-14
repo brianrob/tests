@@ -47,6 +47,8 @@ class MySource : EventSource
 
     public class Program
     {
+        private const int NumActivities = 20;
+
         public static void Main(string[] args)
         {
             Console.WriteLine("Paused");
@@ -56,11 +58,12 @@ class MySource : EventSource
             // Currently the activityIDs generated in the OnEventWritten EventListener callback are always 0.
             // They should be non-zero during the activity.   
             MySource.Logger.Message("Before Start");
-            MySource.Logger.MyActivityStart("MYTask");
-            MySource.Logger.MyActivityStart("MYTask1");
-            MySource.Logger.Message("In task");
-            MySource.Logger.MyActivityStop("MYTask1 stop");
-            MySource.Logger.MyActivityStop("MYTask stop");
+
+            for (int i = 0; i < NumActivities; i++)
+            {
+                MySource.Logger.MyActivityStart($"Activity{i + 1}");
+                MySource.Logger.MyActivityStop($"Activity{i + 1}");
+            }
             MySource.Logger.Message("After task");
             Console.ReadKey();
         }
